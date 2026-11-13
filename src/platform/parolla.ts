@@ -44,7 +44,14 @@ class Platform {
   private playing = false;
   /** Reklam gösterilirken oyunu/sesi durdurmak için. */
 
-  async init(): Promise<InitResult> {
+  private initPromise: Promise<InitResult> | null = null;
+
+  /** Birden çok kez çağrılabilir: SDK yalnızca bir kez başlatılır. */
+  init(): Promise<InitResult> {
+    return (this.initPromise ??= this.doInit());
+  }
+
+  private async doInit(): Promise<InitResult> {
     this.sdk = window.ParollaGames;
     const navLocale: 'tr' | 'en' = navigator.language?.toLowerCase().startsWith('tr') ? 'tr' : 'en';
     if (!this.sdk) {

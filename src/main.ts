@@ -1,8 +1,12 @@
 import './ui/styles.css';
 import { App } from './app';
+import { platform } from './platform/parolla';
 
 const canvas = document.getElementById('game') as HTMLCanvasElement;
 const ui = document.getElementById('ui') as HTMLElement;
+
+// parolla SDK'sını yazı tipleriyle aynı anda başlat (sırayla beklemesinler).
+void platform.init();
 
 // Yazı tipleri yüklenmeden canvas'a yazı çizmeyelim (en fazla 1.5 sn bekle).
 const fontsReady = Promise.race([

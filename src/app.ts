@@ -99,7 +99,12 @@ export class App {
     this.tickLives();
     setInterval(() => this.tickLives(), 1000);
     this.showTitle();
-    document.getElementById('boot')?.remove();
+    // Açılış ekranı yumuşakça kaybolur (ani renk geçişi olmasın).
+    const boot = document.getElementById('boot');
+    if (boot) {
+      boot.classList.add('gone');
+      setTimeout(() => boot.remove(), 400);
+    }
     // Yatay tutulan telefon: oyun dikey tasarlandı, tahta sığmaz. Uyarı göster, oyunu durdur.
     document.body.append(h('div', { class: 'rotate-hint' }, h('div', { class: 'rotate-phone' }), h('p', {}, t('rotate'))));
     requestAnimationFrame((ts) => this.loop(ts));

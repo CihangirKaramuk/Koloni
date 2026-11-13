@@ -3,22 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#5fb24c" />
+    <meta name="theme-color" content="#e6bd8c" />
     <title>Koloni</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lilita+One&display=swap&subset=latin-ext" rel="stylesheet" />
     <!-- parolla Games SDK: portal dışında da (standalone) güvenle çalışır -->
-    <script src="https://www.parolla.app/sdk/v1.js"></script>
+    <script src="https://www.parolla.app/sdk/v1.js" defer></script>
     <style>
-      #boot { position: fixed; inset: 0; display: grid; place-items: center; background: #5fb24c;
-        font: 800 28px 'Trebuchet MS', sans-serif; color: #fff; text-shadow: 0 3px 0 #2b2238; }
+      /* Açılış ekranı: oyunun ahşap masasıyla aynı görünüm, yazı yok (font yüklenmeden de düzgün durur). */
+      html, body { margin: 0; height: 100%; background: #e6bd8c; }
+      #boot { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center;
+        background:
+          repeating-linear-gradient(90deg, rgba(150,95,45,.22) 0 2px, rgba(255,240,220,.35) 2px 3.5px, transparent 3.5px 64px),
+          radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(110,60,20,.18)),
+          linear-gradient(#f0cfa4, #e6bd8c);
+        transition: opacity .35s ease; }
+      #boot.gone { opacity: 0; pointer-events: none; }
+      #boot .trail { display: flex; gap: 34px; }
+      /* Karınca: karın + göğüs + baş (gölgelerle), bacaklar ve antenler (::before / ::after) */
+      #boot .ant { width: 16px; height: 13px; border-radius: 50%; background: #3a2a1e; position: relative;
+        box-shadow: 12px 1px 0 -3px #3a2a1e, 21px 0 0 -2px #3a2a1e;
+        animation: boot-hop .9s ease-in-out infinite; }
+      #boot .ant::before { content: ''; position: absolute; left: 6px; top: -4px; width: 14px; height: 21px;
+        background: repeating-linear-gradient(90deg, #3a2a1e 0 2px, transparent 2px 6px);
+        -webkit-mask: linear-gradient(#000 0 4px, transparent 4px 17px, #000 17px); mask: linear-gradient(#000 0 4px, transparent 4px 17px, #000 17px); }
+      #boot .ant::after { content: ''; position: absolute; left: 27px; top: -5px; width: 7px; height: 6px;
+        border-top: 2px solid #3a2a1e; border-right: 2px solid #3a2a1e; border-radius: 0 6px 0 0; }
+      #boot .ant:nth-child(2) { animation-delay: .15s; }
+      #boot .ant:nth-child(3) { animation-delay: .3s; }
+      @keyframes boot-hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-9px); } }
     </style>
   </head>
   <body>
     <canvas id="game"></canvas>
     <div id="ui"></div>
-    <div id="boot">Koloni…</div>
+    <div id="boot" aria-label="Yükleniyor"><div class="trail"><i class="ant"></i><i class="ant"></i><i class="ant"></i></div></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
