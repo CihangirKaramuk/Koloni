@@ -176,6 +176,8 @@ export class Renderer {
 
   frame(dt: number) {
     this.time += dt;
+    // Sayfa 0×0 boyutta açıldıysa (arka plan sekmesi, henüz boyutlanmamış iframe) çizilecek bir şey yok.
+    if (this.w < 1 || this.h < 1 || this.canvas.width < 1 || this.canvas.height < 1) return;
     const ctx = this.ctx;
     ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     this.drawBackground();

@@ -108,8 +108,20 @@ export class App {
   /* ---------------- Döngü ---------------- */
 
   private loop(ts: number) {
+    // Sonraki kare en başta istenir: bir karede hata olsa bile oyun donmaz.
+    requestAnimationFrame((t2) => this.loop(t2));
+    try {
+      this.step(ts);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  private step(ts: number) {
     const dt = Math.min(0.05, this.last ? (ts - this.last) / 1000 : 0);
     this.last = ts;
+    // Pencere / iframe boyutu, resize olayı kaçsa bile (ör. sayfa 0×0 açılıp sonra büyüdüyse) yakalanır.
+    if (window.innerWidth !== this.viewW || window.innerHeight !== this.viewH) this.onResize();
     if (!this.hidden) {
       const g = this.game;
       if (g && !this.paused && !ROTATE_MQ.matches) {
@@ -128,12 +140,17 @@ export class App {
       }
       this.renderer.frame(this.paused ? 0 : dt);
     }
-    requestAnimationFrame((t2) => this.loop(t2));
   }
+
+  /** Son yerleşimin yapıldığı pencere boyutu. */
+  private viewW = -1;
+  private viewH = -1;
 
   private onResize() {
     const w = window.innerWidth;
     const hh = window.innerHeight;
+    this.viewW = w;
+    this.viewH = hh;
     // Kısa ekranlarda (eski / küçük telefonlar) üst ve alt çubuk sıkışık düzene geçer
     // (styles.css: max-height 720px); tahtaya daha çok yer kalır.
     const compact = hh <= 720;
