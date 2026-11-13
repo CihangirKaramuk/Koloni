@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Koloni · Kapak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lilita+One&display=swap&subset=latin-ext" rel="stylesheet" />
+    <style>
+      body { margin: 0; background: #2b2238; color: #fff; font: 15px system-ui, sans-serif; display: grid; place-items: center; min-height: 100vh; gap: 12px; }
+      canvas { width: min(1280px, 96vw); height: auto; border-radius: 18px; }
+      .bar { display: flex; gap: 10px; align-items: center; }
+      button { font: 700 15px system-ui; padding: 8px 16px; border: 3px solid #fff; border-radius: 10px; background: #4cc34a; color: #fff; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <canvas id="c" width="1920" height="1080"></canvas>
+    <div class="bar">
+      <button id="save">Projeye kaydet (docs/kapak.png)</button>
+      <span id="saved"></span>
+      <span>Parolla kapağı: 16:9, en az 1280×720, en fazla 5 MB.</span>
+    </div>
+    <script type="module" src="./cover.ts"></script>
+  </body>
+</html>

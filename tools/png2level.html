@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Koloni · PNG → Bölüm aracı</title>
+    <style>
+      body { font: 15px/1.4 system-ui, sans-serif; margin: 0; background: #f3ead8; color: #2b2238; }
+      main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+      h1 { margin: 0 0 4px; }
+      .row { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+      .card { background: #fff; border: 3px solid #2b2238; border-radius: 14px; padding: 14px; box-shadow: 0 4px 0 #2b2238; }
+      label { display: block; margin: 6px 0; font-weight: 600; }
+      input[type='number'], input[type='text'] { width: 90px; padding: 4px; }
+      #drop { border: 3px dashed #a8693a; border-radius: 14px; padding: 30px; text-align: center; cursor: pointer; background: #fff8ea; }
+      canvas { image-rendering: pixelated; border: 2px solid #2b2238; background: repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 12px 12px; }
+      textarea { width: 100%; height: 260px; font: 12px/1.3 ui-monospace, monospace; }
+      button { font: inherit; font-weight: 700; padding: 8px 14px; border: 3px solid #2b2238; border-radius: 10px; background: #4cc34a; color: #fff; cursor: pointer; }
+      .pal { display: flex; flex-wrap: wrap; gap: 4px; }
+      .pal span { display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; border: 2px solid #2b2238; border-radius: 6px; font: 12px monospace; background: #fff; }
+      .pal i { width: 14px; height: 14px; border: 1px solid #2b2238; display: inline-block; }
+      .muted { color: #7a6a58; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>PNG → Bölüm aracı</h1>
+      <p class="muted">
+        Bir piksel çizimi (PNG, şeffaf arka planlı) seç. Araç onu oyunun paletine çevirir, önizler ve
+        <code>src/level/art/foods.ts</code> dosyasına yapıştırılacak kodu üretir. CC0 paketlerden aldığın çizimleri böyle eklersin.
+      </p>
+      <div class="row">
+        <div class="card" style="flex: 1; min-width: 300px">
+          <div id="drop">PNG'yi buraya sürükle ya da tıkla<input id="file" type="file" accept="image/png,image/*" hidden /></div>
+          <label>En büyük kenar (piksel) <input id="max" type="number" value="24" min="6" max="48" /></label>
+          <label>En fazla renk <input id="maxColors" type="number" value="6" min="2" max="12" /></label>
+          <label>Şeffaflık eşiği (0-255) <input id="alpha" type="number" value="128" min="1" max="255" /></label>
+          <label>id <input id="id" type="text" value="yeni" /></label>
+          <label>Ad (TR) <input id="nameTr" type="text" value="Yeni" style="width: 160px" /></label>
+          <label>Ad (EN) <input id="nameEn" type="text" value="New" style="width: 160px" /></label>
+          <p class="muted">Kullanılan renkler:</p>
+          <div id="pal" class="pal"></div>
+        </div>
+        <div class="card">
+          <p><b>Önizleme</b> <span id="info" class="muted"></span></p>
+          <canvas id="preview" width="1" height="1"></canvas>
+          <p id="stats" class="muted"></p>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 20px">
+        <p><b>foods.ts için kod</b> <button id="copy">Kopyala</button></p>
+        <textarea id="out" readonly></textarea>
+      </div>
+    </main>
+    <script type="module" src="./png2level.ts"></script>
+  </body>
+</html>

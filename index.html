@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#5fb24c" />
+    <title>Koloni</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Lilita+One&display=swap&subset=latin-ext" rel="stylesheet" />
+    <!-- parolla Games SDK: portal dışında da (standalone) güvenle çalışır -->
+    <script src="https://www.parolla.app/sdk/v1.js"></script>
+    <style>
+      #boot { position: fixed; inset: 0; display: grid; place-items: center; background: #5fb24c;
+        font: 800 28px 'Trebuchet MS', sans-serif; color: #fff; text-shadow: 0 3px 0 #2b2238; }
+    </style>
+  </head>
+  <body>
+    <canvas id="game"></canvas>
+    <div id="ui"></div>
+    <div id="boot">Koloni…</div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

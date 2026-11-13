@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Koloni · Bölüm resimleri</title>
+    <style>
+      body { font: 14px system-ui, sans-serif; margin: 0; padding: 16px; background: #e6bd8c; color: #4a2a12; }
+      h1 { margin: 0 0 6px; }
+      .grid { display: flex; flex-wrap: wrap; gap: 14px; }
+      .item { background: #f3e7da; border-radius: 16px; padding: 10px; text-align: center; box-shadow: 0 4px 0 #c4884f; }
+      canvas { display: block; image-rendering: pixelated; margin: 4px auto; }
+      .src { width: 120px; height: 120px; background: #fff; border-radius: 8px; }
+      textarea { width: 100%; height: 160px; margin-top: 12px; font: 11px monospace; }
+      button { font: 700 14px system-ui; padding: 8px 14px; border-radius: 10px; border: 0; background: #9b3ae0; color: #fff; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Bölüm resimleri</h1>
+    <p>Sol: vektör illüstrasyon · Sağ: pikselleştirilmiş, oyunda kullanılan hali. <button id="save">Projeye kaydet</button> <button id="copy">TS kodunu kopyala</button> <span id="saved"></span></p>
+    <div id="grid" class="grid"></div>
+    <textarea id="out" readonly></textarea>
+    <script type="module" src="./gallery.ts"></script>
+  </body>
+</html>
