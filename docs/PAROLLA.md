@@ -6,8 +6,15 @@ npm run build
 ```
 Çıktı `dist/` klasörüne yazılır (yaklaşık 2,2 MB, sınır ~15 MB). İçindeki tüm yollar göreli olduğu için klasör herhangi bir adreste, alt klasörde de çalışır.
 
-## 2. HTTPS ile yayınla (kendi sunucumuz)
-`dist/` klasörünün içeriğini sunucudaki web klasörüne kopyala ve HTTPS ile sun.
+## 2. HTTPS ile yayınla (GitHub Pages)
+Oyun `main` dalına her yüklemede GitHub Actions ile otomatik derlenip yayınlanır
+(`.github/workflows/pages.yml`: testler → build → Pages). Adres:
+**https://cihangirkaramuk.github.io/Koloni/**
+
+GitHub Pages iframe'i engelleyen bir başlık göndermez, parolla oyunu doğrudan açabilir.
+Durumu deponun **Actions** sekmesinden takip edebilirsin.
+
+**Alternatif: kendi sunucumuz.** `dist/` klasörünün içeriğini sunucudaki web klasörüne kopyala ve HTTPS ile sun.
 Parolla oyunu iframe içinde açtığı için sunucu iframe'i engelleyen başlık göndermemeli.
 nginx örneği:
 ```nginx
